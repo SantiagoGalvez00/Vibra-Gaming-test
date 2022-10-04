@@ -1,42 +1,49 @@
 const csv = require('csv-parser');
 const fs = require('fs');
+const {finished} = require('stream/promises');
 
-function getDataCSV(file, query){
+async function getDataCSV(file, query){
     let data = [];
 
-    fs.createReadStream(file)
+    const parse = fs.createReadStream(file)
         .pipe(csv())
         .on('data', (row) => {
-            data = [...data, filterData(row, query)];
+            if(filterData(row, query)){
+                if(data.length < query.quantity){
+                    data = [...data, row];
+                }
+            }
         })
         .on('end', () => {
-            console.log('CSV file successfully processed');
             return data;
         });
+
+    await finished(parse);
+    return data;
 }
 
 function filterData(data, query){
-    const name = data.firstName + data.lastName;
+    const name = (data.firstName + data.lastName).toLowerCase();
     
     if(query.name && !query.city){
-        if(name == query.name){
-            return data;
+        if(name == query.name.toLowerCase()){
+            return true;
         }
     }
 
     if(!query.name && query.city){
-        if(data.city == query.city){
-            return data;
+        if(data.city.toLowerCase() == query.city.toLowerCase()){
+            return true;
         }
     }
 
     if(query.name && query.city){
-        if(name == query.name && data.city == query.city){
-            return data;
+        if(name == query.name.toLowerCase() && data.city.toLowerCase() == query.city.toLowerCase()){
+            return true;
         }
     }
 
-    return;
+    return false;
 }
 
 module.exports.getDataCSV = getDataCSV;
