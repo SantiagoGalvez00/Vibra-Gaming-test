@@ -9,7 +9,13 @@ class Home extends React.Component {
     }
 
     async onclick() {
-        const response = await axios.get('/api/');
+        const response = await axios.get('/search',{
+            params: {
+                name: 'KimberlyTilliards',
+                city: 'Živinice',
+                quantity: 2
+            }
+        });
         console.log({response});
     }
 

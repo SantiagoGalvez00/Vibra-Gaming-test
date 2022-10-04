@@ -3,7 +3,7 @@ const cors = require('cors');
 const app = express();
 const port = 5000;
 
-const restSearch = require('search');
+const restSearch = require('./rest/search');
 
 app.use(cors());
 app.use('/rest', restSearch);
