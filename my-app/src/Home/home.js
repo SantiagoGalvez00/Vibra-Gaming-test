@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-
 class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -9,12 +8,15 @@ class Home extends React.Component {
         this.state = {};
     }
 
-    render() {
-        let toggle = this.state.tableShow
+    async onclick() {
+        const response = await axios.get('/api/');
+        console.log({response});
+    }
 
+    render() {
         return (
             <>
-                Hola Mundo!
+                <button type='button' onClick={async () => this.onclick()}>Boton</button>
             </>
         )
     }
