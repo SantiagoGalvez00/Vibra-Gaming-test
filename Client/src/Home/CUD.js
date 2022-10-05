@@ -103,6 +103,7 @@ class CUD extends React.Component {
                     </nav>
 
                     <div style={{ marginTop: '50px' }}>
+
                         <form onSubmit={this.onSubmit} className="needs-validation">
                             <div className="mb-3" style={style.input}>
                                 <label htmlFor="firstName" className="form-label">Nombre</label>
@@ -138,6 +139,7 @@ class CUD extends React.Component {
                                 {this.state.tableData}
                             </tbody>
                         </table>
+                        
                     </div>
 
                 </div>
