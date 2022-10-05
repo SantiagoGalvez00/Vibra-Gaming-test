@@ -25,14 +25,13 @@ class CUD extends React.Component {
         const fields = event.target.elements;
         const params = {
             firstName: fields.firstName.value,
-            lastName: fields.lastName.value,
             city: fields.city.value,
             quantity: fields.quantity.value,
         };
 
         const response = await axios.get('/rest/search', {
             params: {
-                name: params.firstName + params.lastName,
+                name: params.firstName,
                 city: params.city,
                 quantity: params.quantity
             }
@@ -99,19 +98,15 @@ class CUD extends React.Component {
 
                     <nav className="navbar navbar-dark bg-dark">
                         <div className="container-fluid">
-                            <a className="navbar-brand" href="/">Navbar</a>
+                            <a className="navbar-brand" href="/">Vibra Gaming Challenge</a>
                         </div>
                     </nav>
 
                     <div style={{ marginTop: '50px' }}>
-                        <form onSubmit={this.onSubmit}>
+                        <form onSubmit={this.onSubmit} className="needs-validation">
                             <div className="mb-3" style={style.input}>
                                 <label htmlFor="firstName" className="form-label">Nombre</label>
                                 <input type="text" className="form-control" id="firstName" />
-                            </div>
-                            <div className="mb-3" style={style.input}>
-                                <label htmlFor="lastName" className="form-label">Apellido</label>
-                                <input type="text" className="form-control" id="lastName" />
                             </div>
 
                             <div className="mb-3" style={style.input}>
@@ -121,7 +116,7 @@ class CUD extends React.Component {
 
                             <div className="mb-3" style={style.input}>
                                 <label htmlFor="quantity" className="form-label">limite</label>
-                                <input type="text" className="form-control" id="quantity" />
+                                <input type="number" className="form-control" id="quantity" required/>
                             </div>
 
                             <button type="submit" className="btn btn-primary">Buscar</button>

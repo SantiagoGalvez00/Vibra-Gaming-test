@@ -22,11 +22,9 @@ async function getDataCSV(file, query){
     return data;
 }
 
-function filterData(data, query){
-    const name = (data.firstName + data.lastName).toLowerCase();
-    
+function filterData(data, query){  
     if(query.name && !query.city){
-        if(name == query.name.toLowerCase()){
+        if(data.firstName.toLowerCase() == query.name.toLowerCase()){
             return true;
         }
     }
@@ -38,7 +36,7 @@ function filterData(data, query){
     }
 
     if(query.name && query.city){
-        if(name == query.name.toLowerCase() && data.city.toLowerCase() == query.city.toLowerCase()){
+        if(data.firstName.toLowerCase() == query.name.toLowerCase() && data.city.toLowerCase() == query.city.toLowerCase()){
             return true;
         }
     }
